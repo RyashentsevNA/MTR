@@ -1,4 +1,4 @@
-from MaterialOrdersProductPosition import MaterialOrdersProductPosition
+from MaterialOrdersAdapter.MaterialOrdersProductPosition import MaterialOrdersProductPosition
 
 
 class TestMaterialOrdersProductPosition(MaterialOrdersProductPosition):
