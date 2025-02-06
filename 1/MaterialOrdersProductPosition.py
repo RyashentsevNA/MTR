@@ -1,19 +1,10 @@
-import base64
-import json
-from asyncio.windows_events import NULL
 
 import requests
-import pprint
-import xml.etree.ElementTree as et
-import requests
-from assertpy import assert_that
-from lxml import etree
-from requests.auth import HTTPBasicAuth
 from Authorization import Authorization
 
-class TestMaterialOrdersProductPosition(Authorization):
+class MaterialOrdersProductPosition(Authorization):
 # Удаление указанного в запросе идентификатора заявки управлением из внешней системы (Удаляет заявку в esmtr24)
-    def test_DeleteMaterialOrdersProductPosition(self):
+    def delete_material_orders_product_position(self):
         header = {'Content-Type': 'text/xml; charset=utf-8',
                   'Authorization': f'Basic {Authorization.authorization_adapter(self)}'}
         xml_body = f"""<Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">
@@ -39,7 +30,7 @@ class TestMaterialOrdersProductPosition(Authorization):
             print('Ошибка:', response.status_code, response.text)
 
 # Внутренняя функция, которая отвечает за создание заявок (Создает заявку в esmtr24)
-    def test_CreateMaterialOrdersProductPosition(self):
+    def create_material_orders_product_position(self):
         header = {'Content-Type': 'text/xml; charset=utf-8',
                   'Authorization': f'Basic {Authorization.authorization_adapter(self)}'}
         xml_body = f"""<Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">
@@ -52,7 +43,7 @@ class TestMaterialOrdersProductPosition(Authorization):
                     <SupDoc>ЛОГ.txt</SupDoc>
                     <RefGroup>70543135</RefGroup>
                     <Producer>Производитель</Producer>
-                    <Comment>Создано авто тестом ОТ</Comment>
+                    <Comment>Создано автотестом ОТ</Comment>
                     <ObjectCode>70646865</ObjectCode>
                     <CustomerDo>Наименование дочерней организации заказчика</CustomerDo>
                 </OrderFields>
@@ -88,7 +79,7 @@ class TestMaterialOrdersProductPosition(Authorization):
             print('Ошибка:', response.status_code, response.text)
 
 # Внутренняя функция, которая отвечает за перевод заявок в работу из статуса "Зарегистрировано"
-    def test_ProvideMaterialOrdersProductPosition(self):
+    def provide_material_orders_product_position(self):
         header = {'Content-Type': 'text/xml; charset=utf-8',
                   'Authorization': f'Basic {Authorization.authorization_adapter(self)}'}
         xml_body = f"""<Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">
@@ -114,7 +105,7 @@ class TestMaterialOrdersProductPosition(Authorization):
             print('Ошибка:', response.status_code, response.text)
 
 #Обновление заявки по указанному идентификатору из внешней системы.
-    def test_UpdateMaterialOrdersProductPosition(self):
+    def update_material_orders_product_position(self):
         header = {'Content-Type': 'text/xml; charset=utf-8',
                   'Authorization': f'Basic {Authorization.authorization_adapter(self)}'}
         xml_body = f"""<Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">
