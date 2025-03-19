@@ -1,6 +1,8 @@
 from MaterialOrdersAdapter.MaterialOrdersProductPosition import MaterialOrdersProductPosition
 
 
-class TestMaterialOrdersProductPosition(MaterialOrdersProductPosition):
-    def test_material_orders_product_position(self):
-        MaterialOrdersProductPosition.create_material_orders_product_position(self)
+class TestCreate(MaterialOrdersProductPosition):
+    # Создает заявку на вкладке "Журнал заявок"
+    def test_create_material_orders_product_position(self):
+        self.create_material_orders_product_position()
+

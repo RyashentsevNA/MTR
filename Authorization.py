@@ -1,11 +1,13 @@
 import base64
 import requests
+from config import Settings
+
 
 
 class Authorization:
     def authorization_esmtr(self):
         params = {'username': 'auvin', 'password': '111'}
-        auth = requests.get('https://esmtr24.sdi-solution.ru/ws/token', params=params).json()
+        auth = requests.get(f'{Settings.mtr_stand}/ws/token', params=params).json()
         return 'Bearer ' + auth['token']
 
     def authorization_adapter(self):
