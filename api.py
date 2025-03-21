@@ -9,10 +9,21 @@ import requests
 from assertpy import assert_that
 from lxml import etree
 from requests.auth import HTTPBasicAuth
+from Authorization import *
 
 
+def authorization_esmtr(self):
+    params = {'username': 'auvin', 'password': '111'}
+    auth = requests.get(f'{Settings.mtr_stand}/ws/token', params=params).json()
+    return 'Bearer ' + auth['token']
 
 
+def authorization_adapter(self):
+    username = 1
+    password = 1
+    credentials = f"{username}:{password}"
+    encoded_credentials = base64.b64encode(credentials.encode('utf-8')).decode('utf-8')
+    return encoded_credentials
 
 # Функция предназначена для получения конфигурация ИС-получателей
 def get_subscribe_info_by_exchange_class():
@@ -82,28 +93,28 @@ def get_exchange_class(class_id):
     return request
 
 
-# def test_get_material_orders_info(orderIds):
-#     getApplicationById = get_application_by_id(orderIds)  # Получение данных по заявкам
-#     getAttributes = get_attributes(orderIds)  # Получение данных по атрибутам заявок
-#     assert orderIds == getApplicationById['id'] and str(orderIds) in getAttributes.keys()  # Проверка хуйни неясной
-#     GetMaterialOrdersInfo = get_material_orders_info(orderIds)  # Вызов тестируемой функции GetMaterialOrdersInfo
-#     assert getApplicationById['uid'] in GetMaterialOrdersInfo[0]['uid'], 'Ошибка в параметре uid'
-#     assert getApplicationById['displayName'] in GetMaterialOrdersInfo[0]['name'], 'Ошибка в параметре displayName'
-#     assert getApplicationById['status'] in GetMaterialOrdersInfo[0]['status'], 'Ошибка в параметре status'
-#     assert getApplicationById['type'] in GetMaterialOrdersInfo[0]['type'], 'Ошибка в параметре type'
-#     assert getApplicationById['applicant'] in GetMaterialOrdersInfo[0]['applicant'], 'Ошибка в параметре applicant'
-#     assert str(orderIds) in GetMaterialOrdersInfo[0]['id'], 'Ошибка в параметре id'
-#
-#     names = [item['name'] for item in GetMaterialOrdersInfo[0]['destinationSystem']]  # Получем все значения destinationSystem в ответе GetMaterialOrdersInfo (тестируемой функции)
-#     names = ', '.join(names)  # превращаем его в строку
-#
-#     for i in getAttributes[str(orderIds)]:  # дробим ответ getAttributes на словари
-#         a = i  # сохраняем ответ в локальную переменную
-#         if a['category'] == 'Системы-получатели':  # проверяем что в словаре значение параметра 'category' = 'Системы-получатели'
-#             h = list(get_subscribe_info(a['propertyId']).keys())  # Получаем значения ключей
-#             h = ', '.join(h) # превращаем его в строку
-#             if h is not NULL:
-#                 assert h in names, f"{h} не входит в {names}"
+def test_get_material_orders_info(orderIds = 7933):
+    getApplicationById = get_application_by_id(orderIds)  # Получение данных по заявкам
+    getAttributes = get_attributes(orderIds)  # Получение данных по атрибутам заявок
+    assert orderIds == getApplicationById['id'] and str(orderIds) in getAttributes.keys()  # Проверка хуйни неясной
+    GetMaterialOrdersInfo = get_material_orders_info(orderIds)  # Вызов тестируемой функции GetMaterialOrdersInfo
+    assert getApplicationById['uid'] in GetMaterialOrdersInfo[0]['uid'], 'Ошибка в параметре uid'
+    assert getApplicationById['displayName'] in GetMaterialOrdersInfo[0]['name'], 'Ошибка в параметре displayName'
+    assert getApplicationById['status'] in GetMaterialOrdersInfo[0]['status'], 'Ошибка в параметре status'
+    assert getApplicationById['type'] in GetMaterialOrdersInfo[0]['type'], 'Ошибка в параметре type'
+    assert getApplicationById['applicant'] in GetMaterialOrdersInfo[0]['applicant'], 'Ошибка в параметре applicant'
+    assert str(orderIds) in GetMaterialOrdersInfo[0]['id'], 'Ошибка в параметре id'
+
+    names = [item['name'] for item in GetMaterialOrdersInfo[0]['destinationSystem']]  # Получем все значения destinationSystem в ответе GetMaterialOrdersInfo (тестируемой функции)
+    names = ', '.join(names)  # превращаем его в строку
+
+    for i in getAttributes[str(orderIds)]:  # дробим ответ getAttributes на словари
+        a = i  # сохраняем ответ в локальную переменную
+        if a['category'] == 'Системы-получатели':  # проверяем что в словаре значение параметра 'category' = 'Системы-получатели'
+            h = list(get_subscribe_info(a['propertyId']).keys())  # Получаем значения ключей
+            h = ', '.join(h) # превращаем его в строку
+            if h is not NULL:
+                assert h in names, f"{h} не входит в {names}"
 
 # def test_get_material_orders_info(orderIds):
 #     getApplicationById = get_application_by_id(orderIds)  # Получение данных по заявкам
